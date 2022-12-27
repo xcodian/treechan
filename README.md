@@ -1,6 +1,8 @@
 # 🌳 treechan 🍀
 It's a read-only client for 4chan (https://4chan.org) designed to show threads and replies in a tree-based format.
 
+Demo hosted at: http://chan.kek.church/
+
 ![Threads in a tree structure](showcase/replies.png)
 
 ### Why?

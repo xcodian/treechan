@@ -14,7 +14,7 @@
 
         if (expanded && replies.length === 0) {
             const res = await fetch(
-                `http://localhost:8080/http://a.4cdn.org/${board}/thread/${op.no}.json`
+                `/a/${board}/thread/${op.no}.json`
             );
             replies = (await res.json()).posts;
         }
@@ -33,6 +33,7 @@
 
     <PostContent {board} post={op}>
         <div class="t-actions">
+            <!-- svelte-ignore a11y-click-events-have-key-events -->
             <div class="t-action" on:click={toggleReplies}>
                 {expanded ? "Hide" : "View"}
                 {op.replies} Replies

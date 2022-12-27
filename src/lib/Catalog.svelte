@@ -10,7 +10,7 @@
     async function getCatalog(b) {
         loading = true;
         const res = await fetch(
-            `http://localhost:8080/https://a.4cdn.org/${board}/catalog.json`
+            `/a/${board}/catalog.json`
         );
         catalog_pages = await res.json();
         loading = false;

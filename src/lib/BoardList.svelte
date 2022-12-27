@@ -6,7 +6,7 @@
 
     onMount(async () => {
         const res = await fetch(
-            `http://localhost:8080/https://a.4cdn.org/boards.json`
+            `/a/boards.json`
         );
         boards = (await res.json()).boards;
     });
@@ -14,6 +14,7 @@
 
 <div class="boards">
     {#each boards as board (board.board)}
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
         <div
             class="board tooltip"
             class:current={current == board.board}

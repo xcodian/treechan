@@ -1,47 +1,61 @@
-# Svelte + TS + Vite
+# 🌳 treechan 🍀
+It's a read-only client for 4chan (https://4chan.org) designed to show threads and replies in a tree-based format.
 
-This template should help get you started developing with Svelte and TypeScript in Vite.
+![Threads in a tree structure](showcase/replies.png)
 
-## Recommended IDE Setup
+### Why?
+I find the way 4chan organizes replies to threads very disorienting and unhelpful in determining the flow of conversations. In the 4chan web client, replies are shown in a flat list, in the order they were posted originally.
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
+As a thread gets more replies, it is natural that multiple conversations in the form of reply chains begin to form. From here, every subsequent addition to the chain is just added to the big chronological list. 
 
-## Need an official Svelte framework?
+This means that if you are scrolling through said list, you will be encountering posts from several reply chains that have little to nothing to do with each other constantly interweaved, forcing you to constantly switch context, and requiring you to meticulously verify which chain the reply actually replies to in order to keep up with the conversation.
 
-Check out [SvelteKit](https://github.com/sveltejs/kit#readme), which is also powered by Vite. Deploy anywhere with its serverless-first approach and adapt to various platforms, with out of the box support for TypeScript, SCSS, and Less, and easily-added support for mdsvex, GraphQL, PostCSS, Tailwind CSS, and more.
+All in all, it's annoying.
 
-## Technical considerations
+This is why this project exists - it is now very easy to follow the chain of replies because, well, it's actually shown properly! Replies to a post become its children, and get shown one level deeper. This is how Reddit structures its comments as well, and I believe it's quite an intuitive system that enhances user experience tenfold.
 
-**Why use this over SvelteKit?**
+### App Design
+The app is written in Svelte and runs almost entirely clientside, using nginx as a CORS proxy to 4chan's API servers. You can run one nginx container that both hosts the app and acts as the CORS proxy, making it very compact & easy to deploy. 
 
-- It brings its own routing solution which might not be preferable for some users.
-- It is first and foremost a framework that just happens to use Vite under the hood, not a Vite app.
+The app is around `38.43 KB` in size including all HTML, JS & CSS assets. With Gzip, it shrinks down to `14 KB` total. Building is powered by the Vite build system and types are enforced in the code with TypeScript.
 
-This template contains as little as possible to get started with Vite + TypeScript + Svelte, while taking into account the developer experience with regards to HMR and intellisense. It demonstrates capabilities on par with the other `create-vite` templates and is a good starting point for beginners dipping their toes into a Vite + Svelte project.
+Images of threads are loaded whenever they are scrolled into the view of the browser, aiming to eliminate spam-API calls to 4chan's API. The nginx CORS proxy also attaches `X-Forwarded-For` and `X-Real-IP` headers to every request in order to indicate the request's true origin.
 
-Should you later need the extended capabilities and extensibility provided by SvelteKit, the template has been structured similarly to SvelteKit so that it is easy to migrate.
+### Installation
 
-**Why `global.d.ts` instead of `compilerOptions.types` inside `jsconfig.json` or `tsconfig.json`?**
+#### 1. Install host dependencies
 
-Setting `compilerOptions.types` shuts out all other types not explicitly listed in the configuration. Using triple-slash references keeps the default TypeScript setting of accepting type information from the entire workspace, while also adding `svelte` and `vite/client` type information.
+In order to run treechan, you'll need Docker and Git. NodeJS is not required to be installed on the host as the build process is fully containerized for your convenience.
 
-**Why include `.vscode/extensions.json`?**
-
-Other templates indirectly recommend extensions via the README, but this file allows VS Code to prompt the user to install the recommended extension upon opening the project.
-
-**Why enable `allowJs` in the TS template?**
-
-While `allowJs: false` would indeed prevent the use of `.js` files in the project, it does not prevent the use of JavaScript syntax in `.svelte` files. In addition, it would force `checkJs: false`, bringing the worst of both worlds: not being able to guarantee the entire codebase is TypeScript, and also having worse typechecking for the existing JavaScript. In addition, there are valid use cases in which a mixed codebase may be relevant.
-
-**Why is HMR not preserving my local component state?**
-
-HMR state preservation comes with a number of gotchas! It has been disabled by default in both `svelte-hmr` and `@sveltejs/vite-plugin-svelte` due to its often surprising behavior. You can read the details [here](https://github.com/rixo/svelte-hmr#svelte-hmr).
-
-If you have state that's important to retain within a component, consider creating an external store which would not be replaced by HMR.
-
-```ts
-// store.ts
-// An extremely simple external store
-import { writable } from 'svelte/store'
-export default writable(0)
+To verify you have Docker installed:
 ```
+$ docker -v
+Docker version 20.10.21, build baeda1f82a
+
+$ git -v
+git version 2.38.1
+```
+
+The Docker & git version don't have to match, just make sure you have something recent.
+
+#### 2. Git-clone the repository
+Now you **need to** clone the repository with Git. **This is important for the build script to run, do not download a zip file from GitHub!**
+
+```
+$ git clone --depth=1 https://github.com/xxcodianxx/treechan.git
+```
+
+#### 3. Run the start-up script
+
+Now, you can simply use the included `run.sh` script and it will install and run treechan for you.
+
+```
+$ ./run.sh
+```
+Excluding network download times, the installation is extremely fast (about 2 seconds).
+
+By default, the server runs on port `8080`, but this can be changed at the top of the `./run.sh` file.
+
+Congrats, you now have treechan running. If you did this on your local machine, you can now visit http://localhost:8080 and enjoy.
+
+If you did it on a server, just replace `localhost` with your server's IP. Remember to port forward port `8080` or your chosen port.

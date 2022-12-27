@@ -24,9 +24,9 @@
     class:flex-wrap={post.com?.length >= 700 || (post.w > post.h && post.com?.length >= 250)}
 >
     {#if post.tim}
-        <a href="http://i.4cdn.org/{board}/{post.tim}{post.ext}" class="image">
+        <a href="/i/{board}/{post.tim}{post.ext}" class="image">
             <ImageLoader
-                src="http://localhost:8080/http://i.4cdn.org/{board}/{post.tim}s.jpg"
+                src="/i/{board}/{post.tim}s.jpg"
                 placeholderWidth={post.tn_w}
                 placeholderHeight={post.tn_h}
                 alt={post.filename}

@@ -1,11 +1,14 @@
 <script lang="ts">
     import ImageLoader from "./ImageLoader.svelte";
     import ReplyTree from "./ReplyTree.svelte";
+    import dayjs from "dayjs";
 
     export var board;
     export var thread;
     var expanded = false;
     var replies = [];
+
+    var post_time = dayjs.unix(thread.time);
 
     async function toggleReplies() {
         expanded = !expanded;
@@ -29,24 +32,34 @@
 <div class="thread">
     <div class="t-info">
         <div class="t-no">
-            #{thread.no} by {thread.name}
+            <span style="color: #FBC02D">#{thread.no}</span> by
+            <span style="color: #4DB6AC">{thread.name}</span>
+            at
+            <span style="color: #03A9F4"
+                >{post_time.format("DD/MM/YYYY - HH:MM")} ({post_time.fromNow()})</span
+            >
             {thread["id"] ? `(ID ${thread["id"]})` : ""}
         </div>
         <div style="flex-grow: 1" />
         {#if thread["sticky"]}
-            <div style="color: greenyellow;">sticky</div>
+            <div class="status" style="color: greenyellow;">sticky</div>
         {/if}
         {#if thread["closed"]}
-            <div style="color: orangered;">closed</div>
+            <div class="status" style="color: orangered;">closed</div>
         {/if}
     </div>
-    <div class="t-content">
+
+    <div
+        class="t-content"
+        class:flex-wrap={thread.w > thread.h && thread.com?.length >= 250}
+    >
         <div class="t-img">
             <ImageLoader
                 src="http://localhost:8080/http://i.4cdn.org/{board}/{thread.tim}s.jpg"
                 alt={thread.filename}
             />
         </div>
+
         <div>
             <div class="t-sub">{thread.sub}</div>
             <div class="t-com">{@html thread.com}</div>
@@ -108,7 +121,15 @@
 
     .t-content {
         display: flex;
-        flex-wrap: 1;
         gap: 16px;
+    }
+
+    .flex-wrap {
+        flex-wrap: wrap;
+    }
+
+    .status {
+        cursor: default;
+        user-select: none;
     }
 </style>

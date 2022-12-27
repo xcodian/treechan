@@ -1,6 +1,8 @@
 <script>
     export let src;
     export let alt;
+    export var width;
+    export var height;
 
     import { onMount } from "svelte";
 
@@ -14,7 +16,12 @@
     });
 </script>
 
-<img {src} {alt} bind:this={thisImage} loading="lazy" />
+<div bind:clientWidth={width} bind:clientHeight={height}>
+    <img {src} {alt} bind:this={thisImage} loading="lazy" />
+</div>
 
 <style>
+    img {
+        border-radius: 3px;
+    }
 </style>

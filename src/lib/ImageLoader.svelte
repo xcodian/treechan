@@ -12,10 +12,13 @@
     //     nativeLoading = true
     //   }
     // })
+
+    export var width = 0
+    export var height = 0
 </script>
 
 <IntersectionObserver once={true} let:intersecting>
     {#if intersecting || nativeLoading}
-        <Image {alt} {src} />
+        <Image bind:width bind:height {alt} {src} />
     {/if}
 </IntersectionObserver>

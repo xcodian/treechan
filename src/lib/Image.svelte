@@ -1,8 +1,8 @@
 <script>
     export let src;
     export let alt;
-    export var width;
-    export var height;
+    export let placeholderWidth;
+    export let placeholderHeight;
 
     import { onMount } from "svelte";
 
@@ -16,12 +16,22 @@
     });
 </script>
 
-<div bind:clientWidth={width} bind:clientHeight={height}>
+<div>
+    {#if !loaded}
+        <div
+            class="placeholder"
+            style="width: {placeholderWidth}px; height: {placeholderHeight}px;"
+        />
+    {/if}
     <img {src} {alt} bind:this={thisImage} loading="lazy" />
 </div>
 
 <style>
     img {
         border-radius: 3px;
+    }
+
+    .placeholder {
+        background-color: rgba(0, 0, 0, 0.25);
     }
 </style>

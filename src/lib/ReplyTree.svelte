@@ -42,5 +42,4 @@
     }
 </script>
 
-<ReplyNode board={board} reply={getTree()[0]} onlyChildren>
-</ReplyNode>
+<ReplyNode board={board} root={getTree()[0]} onlyChildren />

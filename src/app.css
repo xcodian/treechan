@@ -38,7 +38,14 @@ h1 {
     padding: 2rem;
 }
 
-.card {
-    background-color: #1e1e1e;
+.quote {
+    color: lightgreen;
+}
+
+.prettyprint {
+    background-color: rgba(0, 0, 0, 0.5);
     border-radius: 8px;
+    margin: 0;
+    margin-block-start: 8px;
+    padding: 8px;
 }

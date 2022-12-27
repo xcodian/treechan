@@ -1,6 +1,8 @@
 <script>
     export let src;
     export let alt;
+    export let placeholderWidth = 100;
+    export let placeholderHeight = 200;
 
     import { onMount } from "svelte";
     import IntersectionObserver from "./IntersectionObserver.svelte";
@@ -12,13 +14,21 @@
     //     nativeLoading = true
     //   }
     // })
-
-    export var width = 0
-    export var height = 0
 </script>
 
 <IntersectionObserver once={true} let:intersecting>
     {#if intersecting || nativeLoading}
-        <Image bind:width bind:height {alt} {src} />
+        <Image {placeholderHeight} {placeholderWidth} {alt} {src} />
+    {:else}
+        <div
+            class="placeholder"
+            style="width: {placeholderWidth}px; height: {placeholderHeight}px;"
+        />
     {/if}
 </IntersectionObserver>
+
+<style>
+    .placeholder {
+        background-color: rgba(0, 0, 0, 0.25);
+    }
+</style>

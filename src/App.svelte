@@ -1,24 +1,35 @@
 <script lang="ts">
-    import { onMount } from "svelte";
-    import catalog_pages from "./lib/catalog_pages.json";
-    import Thread from "./lib/Thread.svelte";
+    import BoardList from "./lib/BoardList.svelte";
+    import Catalog from "./lib/Catalog.svelte";
+
+    let board = null;
 </script>
 
-<main>
-    <h1>treechan</h1>
-    <div class="threads">
-        {#each catalog_pages as { page, threads } (page)}
-            {#each threads as thread (thread.no)}
-                <Thread board="po" thread={thread} />
-            {/each}
-        {/each}
-    </div>
+<main class:mtop={board == null}>
+    <span class="title">treechan</span>
+    <span class="subtitle">Tree-based based 4chan client</span>
+    <BoardList bind:current={board} />
+    {#if board}
+        <Catalog {board} />
+    {/if}
 </main>
 
 <style>
-    .threads {
+    main {
         display: flex;
         flex-direction: column;
-        gap: 1em;
+        gap: 32px;
+    }
+
+    .mtop {
+        margin-top: 200px;
+    }
+
+    .title {
+        font-size: 40pt;
+    }
+
+    .subtitle {
+        font-size: 24pt;
     }
 </style>

@@ -43,7 +43,7 @@
     </PostContent>
 
     {#if expanded}
-        <div style="padding-top: 8px; overflow-x: scroll;">
+        <div class="reply-tree">
             {#if replies.length}
                 <ReplyTree {board} {replies} />
             {:else}
@@ -85,5 +85,16 @@
     .status {
         cursor: default;
         user-select: none;
+    }
+
+    .reply-tree {
+        padding-top: 8px;
+        overflow-x: scroll;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    .reply-tree::-webkit-scrollbar {
+        display: none;
     }
 </style>

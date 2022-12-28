@@ -48,6 +48,7 @@
         padding: 8px;
         justify-content: left;
         margin-block: 4px;
+        min-width: 200px;
     }
 
     .t-children {

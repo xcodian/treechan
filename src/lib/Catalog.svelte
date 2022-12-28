@@ -9,9 +9,7 @@
 
     async function getCatalog(b) {
         loading = true;
-        const res = await fetch(
-            `/a/${board}/catalog.json`
-        );
+        const res = await fetch(`/a/${board}/catalog.json`);
         catalog_pages = await res.json();
         loading = false;
     }
@@ -36,6 +34,12 @@
         display: flex;
         flex-direction: column;
         gap: 1em;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .threads {
+            gap: 0.5em;
+        }
     }
 
     .loading {

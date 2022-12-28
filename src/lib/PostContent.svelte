@@ -21,7 +21,8 @@
 
 <div
     class="content"
-    class:flex-wrap={post.com?.length >= 700 || (post.w > post.h && post.com?.length >= 250)}
+    class:flex-wrap={post.com?.length >= 700 ||
+        (post.w > post.h && post.com?.length >= 250)}
 >
     {#if post.tim}
         <a href="/i/{board}/{post.tim}{post.ext}" class="image">
@@ -36,7 +37,10 @@
 
     <div>
         {#if post.tim}
-            <a href="http://i.4cdn.org/{board}/{post.tim}{post.ext}" class="meta">
+            <a
+                href="http://i.4cdn.org/{board}/{post.tim}{post.ext}"
+                class="meta"
+            >
                 {post.filename}{post.ext}
                 ({formatBytes(post.fsize)})
                 {#if post.w > 1 && post.h > 1}
@@ -45,7 +49,7 @@
             </a>
         {/if}
         {#if post.sub != null}
-            <div class="sub">{post.sub}</div>
+            <div class="sub">{@html post.sub}</div>
         {/if}
         {#if post.com != null}
             <div class="com">{@html post.com}</div>
@@ -61,6 +65,12 @@
         column-gap: 16px;
     }
 
+    @media only screen and (max-width: 600px) {
+        .content {
+            flex-wrap: wrap;
+        }
+    }
+
     .flex-wrap {
         flex-wrap: wrap;
     }
@@ -69,7 +79,14 @@
         font-weight: bold;
     }
 
+    .com {
+        display: inline-block;
+        word-break: break-word;
+    }
+
     .meta {
         color: gray;
+        display: inline-block;
+        word-break: break-all;
     }
 </style>

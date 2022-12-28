@@ -13,9 +13,7 @@
         expanded = !expanded;
 
         if (expanded && replies.length === 0) {
-            const res = await fetch(
-                `/a/${board}/thread/${op.no}.json`
-            );
+            const res = await fetch(`/a/${board}/thread/${op.no}.json`);
             replies = (await res.json()).posts;
         }
     }
@@ -45,7 +43,7 @@
     </PostContent>
 
     {#if expanded}
-        <div style="padding-top: 8px;">
+        <div style="padding-top: 8px; overflow-x: scroll;">
             {#if replies.length}
                 <ReplyTree {board} {replies} />
             {:else}
@@ -61,6 +59,12 @@
         border-radius: 8px;
         padding: 1em;
         justify-content: left;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .thread {
+            border-radius: 0px;
+        }
     }
 
     .t-actions {

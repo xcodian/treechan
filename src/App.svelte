@@ -32,4 +32,19 @@
     .subtitle {
         font-size: 24pt;
     }
+
+    @media only screen and (max-width: 600px) {
+        .title {
+            margin-inline: 2rem;
+        }
+
+        .subtitle {
+            margin-inline: 2rem;
+            line-height: 1;
+        }
+
+        .mtop {
+            margin-top: 20px;
+        }
+    }
 </style>

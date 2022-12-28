@@ -41,6 +41,12 @@
         gap: 8px;
     }
 
+    @media only screen and (max-width: 600px) {
+        .boards {
+            padding-inline: 1rem;
+        }
+    }
+
     .current {
         background-color: #fbc02d;
         color: black;

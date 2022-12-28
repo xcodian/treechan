@@ -36,6 +36,13 @@ h1 {
     max-width: 640px;
     margin: 0 auto;
     padding: 2rem;
+    overflow-x: hidden;
+}
+
+@media only screen and (max-width: 600px) {
+    #app {
+        padding-inline: 0;
+    }
 }
 
 .quote {

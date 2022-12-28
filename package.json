@@ -19,6 +19,8 @@
     "vite": "^4.0.0"
   },
   "dependencies": {
-    "dayjs": "^1.11.7"
+    "@tensorflow/tfjs": "^2.6.0",
+    "dayjs": "^1.11.7",
+    "nsfwjs": "^2.4.2"
   }
 }

@@ -24,7 +24,7 @@
     class:flex-wrap={post.com?.length >= 700 ||
         (post.w > post.h && post.com?.length >= 250)}
 >
-    {#if post.tim}
+    {#if post.tim && post.ext}
         <a href="/i/{board}/{post.tim}{post.ext}" class="image">
             <ImageLoader
                 src="/i/{board}/{post.tim}s.jpg"

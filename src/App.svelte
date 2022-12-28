@@ -1,9 +1,7 @@
 <script lang="ts">
-    import { onMount, tick } from "svelte";
+    import { tick } from "svelte";
     import BoardList from "./lib/BoardList.svelte";
     import Catalog from "./lib/Catalog.svelte";
-    import * as nsfwjs from "nsfwjs";
-    import * as tf from "@tensorflow/tfjs";
     import { nsfw_model } from "./lib/stores";
 
     let board = null;
@@ -13,6 +11,9 @@
     async function load_model() {
         model_loading = true;
         await tick();
+
+        const nsfwjs = await import("nsfwjs");
+        const tf = await import("@tensorflow/tfjs");
         
         tf.enableProdMode();
         model = await nsfwjs.load("/nsfw_model/", { size: 299 });

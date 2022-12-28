@@ -86,7 +86,7 @@
 
     .meta {
         color: gray;
-        display: inline-block;
+        display: block;
         word-break: break-all;
     }
 </style>
